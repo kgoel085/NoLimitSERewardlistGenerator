@@ -2,8 +2,8 @@
   <v-app>
     <NavBar></NavBar>
     <v-main>
-      <v-container>
-        <Main></Main>
+      <v-container fluid >
+        <Main class="ma-1"></Main>
       </v-container>
     </v-main>
   </v-app>
