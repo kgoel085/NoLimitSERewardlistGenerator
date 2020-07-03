@@ -10,38 +10,71 @@
       </div>
 
       <v-spacer></v-spacer>
-      <!-- <v-tooltip bottom>
-        <template v-slot:activator="on">
-          <v-btn v-model="setDarkModeVal" @click="setDarkModeVal = !setDarkModeVal" v-on="on">
-            <v-icon :dark="setDarkModeVal">mdi-flare</v-icon>
+      <v-btn fab x-small class="mx-1">
+        <v-icon>mdi-account-details</v-icon>
+      </v-btn>
+
+      <v-menu
+        v-model="showCreditModel"
+        :close-on-content-click="false"
+        :nudge-width="200"
+        :nudge-bottom="30"
+        bottom
+        open-on-hover
+        offset-x
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab x-small class="mx-1" v-on="on" v-bind="attrs">
+            <v-icon>mdi-star</v-icon>
           </v-btn>
         </template>
-        <span>Change Theme</span>
-      </v-tooltip> -->
+        <v-list nav rounded avatar>
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-icon class="deep-orange text--white" color="white">mdi-reddit</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title >Original Idea by: <a href="https://www.reddit.com/user/Tar-Ton/">Tar-Ton (u/Tar-Ton)</a></v-list-item-title>
+              <v-list-item-subtitle>Visit original post <a href="https://www.reddit.com/r/nfsnolimits/comments/hdxk6h/special_event_material_rewardskits_info_generator/?utm_source=share&utm_medium=web2x">here</a></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab x-small @click="setDarkModeVal = !setDarkModeVal" v-bind="attrs" v-on="on">
+            <v-icon :dark="!setDarkModeVal">mdi-{{ (!setDarkModeVal) ? 'white-balance-sunny' : 'moon-waxing-crescent' }}</v-icon>
+          </v-btn>
+        </template>
+        <span>Switch theme</span>
+      </v-tooltip>
     </v-app-bar>
 </template>
 
 <script>
-// import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
-  // computed: {
-  //   ...mapGetters(['isDarkMode']),
-  //   setDarkModeVal: {
-  //     get () {
-  //       return this.isDarkMode
-  //     },
-  //     set (val) {
-  //       this.$vuetify.theme.dark = !val
-  //       this.setDarkMode(val)
-  //     }
-  //   }
-  // },
-  // methods: {
-  //   ...mapMutations(['setDarkMode'])
-  // },
-  // mounted () {
-  //   // this.$vuetify.theme.dark = this.setDarkMode
-  // }
+  data: () => ({
+    showCreditModel: true // Show credits model
+  }),
+  computed: {
+    ...mapGetters(['isDarkMode']),
+    setDarkModeVal: {
+      get () {
+        return this.isDarkMode
+      },
+      set (val) {
+        this.$vuetify.theme.dark = !val
+        this.setDarkMode(val)
+      }
+    }
+  },
+  methods: {
+    ...mapMutations(['setDarkMode'])
+  },
+  mounted () {
+    // this.$vuetify.theme.dark = this.setDarkMode
+  }
 }
 </script>
 
