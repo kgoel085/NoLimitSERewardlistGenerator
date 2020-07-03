@@ -132,11 +132,57 @@ export default {
       this.$store.commit('EventRewardTemplate/calculateRewardItems', dataToSend)
     },
 
+    // Handle part value to output based on index
+    getPartValueFromIndex (category = null, categoryType = null, materialType = null) {
+      const selArr = this.eventRewardInputArr
+
+      let returnVal = null
+      const valMapping = {
+        1: {
+          1: {
+            1: 0,
+            2: 16
+          },
+          2: {
+            1: 6,
+            2: 10
+          }
+        },
+        2: {
+          1: {
+            1: 2,
+            2: 12
+          },
+          2: {
+            1: 1,
+            2: 14
+          }
+        },
+        3: {
+          1: {
+            1: 4,
+            2: 11
+          },
+          2: {
+            1: 15,
+            2: 8
+          }
+        }
+      }
+
+      if (Object.keys(valMapping).includes(category) && Object.keys(valMapping[category]).length > 0 && Object.keys(valMapping[category]).includes(categoryType) && valMapping[category][categoryType] && Object.keys(valMapping[category][categoryType]).includes(materialType) && parseInt(valMapping[category][categoryType][materialType]) >= 0) returnVal = selArr[valMapping[category][categoryType][materialType]].value
+
+      return returnVal
+    },
+
     // Get race part name based on provided input
     getRacePartName (race) {
       let returnVal = 'N/A'
 
-      const { category, category_type: categoryType } = race
+      let { category, category_type: categoryType, material_type: materialType } = race
+      if (category) category = category.toString()
+      if (categoryType) categoryType = categoryType.toString()
+      if (materialType) materialType = materialType.toString()
       const selArr = this.eventRewardInputArr
 
       const { id } = race
@@ -197,49 +243,89 @@ export default {
           else if (selArr[4].value === 'Valve') returnVal = 'Thermosensor'
           break
 
-        case 19: {
-          const valMapping = {
-            1: {
-              1: 0,
-              2: 6
-            },
-            2: {
-              1: 2,
-              2: 1
-            },
-            3: {
-              1: 4,
-              2: 15
-            }
-          }
-
-          if (Object.keys(valMapping).includes(category) && Object.keys(valMapping[category]).length > 0 && Object.keys(valMapping[category]).includes(categoryType) && valMapping[category][categoryType]) returnVal = selArr[valMapping[category][categoryType]].value
-
-          // if (category === 1 && categoryType === 1) {
-          //   if (materialType === 1) returnVal = selArr[0].value
-          // } else {
-          //   if (category === 1 && categoryType === 2) {
-          //     if (materialType === 1) returnVal = selArr[6].value
-          //   } else {
-          //     if (category === 2 && categoryType === 1) {
-          //       if (materialType === 1) returnVal = selArr[2].value
-          //     } else {
-          //       if (category === 2 && categoryType === 2) {
-          //         if (materialType === 1) returnVal = selArr[1].value
-          //       } else {
-          //         if (category === 3 && categoryType === 1) {
-          //           if (materialType === 1) returnVal = selArr[4].value
-          //         } else {
-          //           if (category === 3 && categoryType === 2) {
-          //             if (materialType === 1) returnVal = selArr[15].value
-          //           }
-          //         }
-          //       }
-          //     }
-          //   }
-          // }
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+        case 26:
+        case 28:
+        case 32:
+        case 33:
+        case 35:
+        case 36:
+        case 37:
+        case 38:
+        case 39:
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
+        case 45:
+        case 46:
+        case 47:
+        case 48:
+        case 49:
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+        case 54:
+        case 55:
+        case 56:
+        case 57:
+        case 58:
+        case 59:
+        case 60:
+        case 61:
+        case 63:
+        case 64:
+        case 66:
+          returnVal = this.getPartValueFromIndex(category, categoryType, materialType)
           break
-        }
+        case 25:
+          if (parseInt(category) === 1 && parseInt(categoryType) === 2 && parseInt(materialType) === 3) {
+            if (selArr[6].value === 'Thrust Sleeve') returnVal = 'Turbo Upgrade Kit 1'
+            else if (selArr[6].value === 'Flywheel') returnVal = 'Engine Upgrade Kit 1'
+          }
+          break
+        case 27:
+          if (parseInt(category) === 3 && parseInt(categoryType) === 2 && parseInt(materialType) === 3) {
+            if (selArr[15].value === 'Thermosensor') returnVal = 'ECU Upgrade Kit 1'
+            else if (selArr[15].value === 'Valve') returnVal = 'Nitro Upgrade Kit 1'
+          }
+          break
+        case 29:
+        case 62:
+          if (parseInt(category) === 2 && parseInt(categoryType) === 1 && parseInt(materialType) === 3) {
+            if (selArr[2].value === 'Input Shaft') returnVal = 'Gearbox Upgrade Kit 1'
+            else if (selArr[2].value === 'Tread') returnVal = 'Wheel Upgrade Kit 1'
+          }
+          break
+        case 30:
+          if (parseInt(category) === 2 && parseInt(categoryType) === 2 && parseInt(materialType) === 3) {
+            if (selArr[1].value === 'Tread') returnVal = 'Wheel Upgrade Kit 1'
+            else if (selArr[1].value === 'Input Shaft') returnVal = 'Gearbox Upgrade Kit 1'
+          }
+          break
+        case 31:
+        case 65:
+          if (parseInt(category) === 3 && parseInt(categoryType) === 1 && parseInt(materialType) === 3) {
+            if (selArr[4].value === 'Thermosensor') returnVal = 'ECU Upgrade Kit 1'
+            else if (selArr[4].value === 'Valve') returnVal = 'Nitro Upgrade Kit 1'
+          }
+          break
+        case 34:
+          if (parseInt(category) === 1 && parseInt(categoryType) === 1 && parseInt(materialType) === 3) {
+            if (selArr[0].value === 'Thrust Sleeve') returnVal = 'Turbo Upgrade Kit 1'
+            else if (selArr[0].value === 'Flywheel') returnVal = 'Engine Upgrade Kit 1'
+          }
+          break
+        case 67:
+          returnVal = 'Cash / Gold'
+          break
       }
 
       const findObj = this.rewardTemplate.races.findIndex(obj => obj.id === race.id)

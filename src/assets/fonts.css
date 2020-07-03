@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'NFS';
+  src: local('Roboto'), local('Roboto-Regular'),
+    url('./NFS.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400
+}

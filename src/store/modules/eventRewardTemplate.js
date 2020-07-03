@@ -19,11 +19,8 @@ export default {
       const mainArrIndex = state.dataArr.findIndex(obj => obj.day === day)
       if (mainArrIndex >= 0 && mainArrIndex !== null) {
         const findObj = state.dataArr[mainArrIndex].races.find((obj, key) => key === index)
-        if (findObj) {
-          state.dataArr[mainArrIndex].races[index].value = value
-        }
+        if (findObj) state.dataArr[mainArrIndex].races[index].value = value
       }
-      if (index === 0 && day === 4) console.log('Receveid Udpate Value: ', stat, value)
     }
   },
   actions: {

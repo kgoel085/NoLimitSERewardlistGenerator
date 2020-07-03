@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="true">
     <NavBar></NavBar>
     <v-main>
       <v-container fluid >

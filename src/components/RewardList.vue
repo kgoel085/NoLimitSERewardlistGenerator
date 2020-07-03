@@ -85,38 +85,38 @@ export default {
         }
 
         case 'Intake': {
-          if (selArr[9] === 'Intake') material.subtract = 2
-          else if (selArr[9] === 'Backplate') material.subtract = 6
+          if (selArr[5] === 'Intake') material.subtract = 2
+          else if (selArr[5] === 'Backplate') material.subtract = 6
           break
         }
 
         case 'Backplate': {
-          if (selArr[9] === 'Backplate') material.subtract = 2
-          else if (selArr[9] === 'Intake') material.subtract = 6
+          if (selArr[5] === 'Backplate') material.subtract = 2
+          else if (selArr[5] === 'Intake') material.subtract = 6
           break
         }
 
         case 'Clutch Plate': {
-          if (selArr[16] === 'Clutch Plate') material.subtract = 5
-          else if (selArr[16] === 'Brake Disc') material.subtract = 4
+          if (selArr[12] === 'Clutch Plate') material.subtract = 5
+          else if (selArr[12] === 'Brake Disc') material.subtract = 4
           break
         }
 
         case 'Brake Disc': {
-          if (selArr[16] === 'Brake Disc') material.subtract = 5
-          else if (selArr[16] === 'Clutch Plate') material.subtract = 4
+          if (selArr[12] === 'Brake Disc') material.subtract = 5
+          else if (selArr[12] === 'Clutch Plate') material.subtract = 4
           break
         }
 
         case 'Harness': {
-          if (selArr[12] === 'Harness') material.subtract = 5
-          else if (selArr[12] === 'Tank') material.subtract = 4
+          if (selArr[8] === 'Harness') material.subtract = 5
+          else if (selArr[8] === 'Tank') material.subtract = 4
           break
         }
 
         case 'Tank': {
-          if (selArr[12] === 'Tank') material.subtract = 5
-          else if (selArr[12] === 'Harness') material.subtract = 4
+          if (selArr[8] === 'Tank') material.subtract = 5
+          else if (selArr[8] === 'Harness') material.subtract = 4
           break
         }
       }
