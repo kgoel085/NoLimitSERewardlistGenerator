@@ -7,18 +7,18 @@
     </v-flex>
     <v-flex xs12 v-else>
       <v-layout row wrap>
-        <!-- Reward list selection table -->
-        <v-flex xs8>
-          <RewardTable :rewardTemplate="eventRewardTpl[0]"></RewardTable>
-        </v-flex>
-        <v-flex xs4>
-          <!-- Reward list -->
+        <!-- Reward list -->
+        <v-flex xs12 md4>
           <RewardList></RewardList>
+        </v-flex>
+        <!-- Reward list selection table -->
+        <v-flex xs12 md8>
+          <RewardTable :rewardTemplate="eventRewardTpl[0]"></RewardTable>
         </v-flex>
       </v-layout>
 
       <v-layout row wrap>
-        <v-flex xs4 v-for="(event, index) in eventRewardTpl.filter((obj, index) => index > 0)" :key="index">
+        <v-flex xs12 md4 v-for="(event, index) in eventRewardTpl.filter((obj, index) => index > 0)" :key="index">
           <RewardTable :rewardTemplate="event"></RewardTable>
         </v-flex>
       </v-layout>
