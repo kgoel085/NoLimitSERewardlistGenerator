@@ -10,22 +10,26 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn fab x-small class="mx-1">
-        <v-icon>mdi-account-details</v-icon>
-      </v-btn>
-
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab x-small @click="setDarkModeVal = !setDarkModeVal" v-bind="attrs" v-on="on">
+            <v-icon :dark="!setDarkModeVal">mdi-{{ (!setDarkModeVal) ? 'white-balance-sunny' : 'moon-waxing-crescent' }}</v-icon>
+          </v-btn>
+        </template>
+        <span>Switch theme</span>
+      </v-tooltip>
       <v-menu
         v-model="showCreditModel"
-        :close-on-content-click="false"
         :nudge-width="200"
         :nudge-bottom="30"
         bottom
         open-on-hover
         offset-x
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn fab x-small class="mx-1" v-on="on" v-bind="attrs">
-            <v-icon>mdi-star</v-icon>
+        <template v-slot:activator="{ on }">
+          <v-btn class="mx-1" v-on="on">
+            Credits
+            <!-- <v-icon>mdi-star</v-icon> -->
           </v-btn>
         </template>
         <v-list nav rounded avatar>
@@ -40,14 +44,6 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn fab x-small @click="setDarkModeVal = !setDarkModeVal" v-bind="attrs" v-on="on">
-            <v-icon :dark="!setDarkModeVal">mdi-{{ (!setDarkModeVal) ? 'white-balance-sunny' : 'moon-waxing-crescent' }}</v-icon>
-          </v-btn>
-        </template>
-        <span>Switch theme</span>
-      </v-tooltip>
     </v-app-bar>
 </template>
 
