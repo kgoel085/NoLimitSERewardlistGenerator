@@ -4,11 +4,14 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <span class="nfs_font px-2">NFS No Limits </span> ( Material List and Kit info generator by <a class="secondary pa-1" href="https://www.reddit.com/r/nfsnolimits/comments/hdxk6h/special_event_material_rewardskits_info_generator/?utm_source=share&utm_medium=web2x">  Tar-Ton (u/Tar-Ton) </a> )
+      <div class="d-flex align-center" >
+        <span class="nfs_font px-2">NFS No Limits </span>
+        <span v-if="!$vuetify.breakpoint.mobile">
+          ( Material List and Kit info generator by <a class="secondary pa-1" href="https://www.reddit.com/r/nfsnolimits/comments/hdxk6h/special_event_material_rewardskits_info_generator/?utm_source=share&utm_medium=web2x">  Tar-Ton (u/Tar-Ton) </a> )
+        </span>
       </div>
       <v-spacer></v-spacer>
-      <span class="pa-1">This interface developed by: <a class="secondary pa-1" href="https://www.reddit.com/user/kgoel085/">kgoel085 (u/kgoel085)</a></span>
+      <span class="pa-1" v-if="!$vuetify.breakpoint.mobile">This interface developed by: <a class="secondary pa-1" href="https://www.reddit.com/user/kgoel085/">kgoel085 (u/kgoel085)</a></span>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn @click="setDarkModeVal = !setDarkModeVal" v-bind="attrs" v-on="on">
@@ -17,13 +20,13 @@
         </template>
         <span>Switch theme</span>
       </v-tooltip>
-      <!-- <v-menu
+      <v-menu
         v-model="showCreditModel"
-        :nudge-width="200"
+        :nudge-width="$vuetify.breakpoint.width"
         :nudge-bottom="30"
         bottom
-        open-on-hover
         offset-x
+        v-if="$vuetify.breakpoint.mobile"
       >
         <template v-slot:activator="{ on }">
           <v-btn class="mx-2" v-on="on">
@@ -41,7 +44,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </v-menu> -->
+      </v-menu>
     </v-app-bar>
 </template>
 
@@ -49,7 +52,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   data: () => ({
-    showCreditModel: true // Show credits model
+    showCreditModel: false // Show credits model
   }),
   computed: {
     ...mapGetters(['isDarkMode']),
