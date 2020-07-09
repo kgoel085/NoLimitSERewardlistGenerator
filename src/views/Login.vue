@@ -8,7 +8,7 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-form v-model="formValidated">
+      <v-form v-model="formValidated" ref="loginForm" @keyup.native.enter="triggerLogin">
         <v-layout row wrap class="pa-1">
           <v-flex xs12 v-for="(field, index) in dataFields" :key="index">
             <v-text-field
@@ -23,14 +23,14 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn class="primary">
+      <v-btn class="primary" :disabled="!formValidated" @click="triggerLogin">
         Login <v-icon>mdi-login</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   data: () => ({
     formValidated: false, // Form is validated or not
@@ -57,14 +57,34 @@ export default {
       }
     }
   }),
-  methods: {
-    ...mapMutations(['setShowLoginModel'])
+  computed: {
+    ...mapGetters({
+      snackBar: 'getSnackBar' // Get snackbar object
+    })
   },
-  mounted () {
+  methods: {
+    ...mapMutations(['setShowLoginModel']),
+    // Trigger firebase login
+    triggerLogin () {
+      const emailCred = {}
+      for (const key of Object.keys(this.dataFields)) emailCred[key] = this.dataFields[key].value
+      const { email, password } = emailCred
+
+      this.$__firebase.fireauth.signInWithEmailAndPassword(email, password).then(resp => {
+        const { user } = resp
+        this.$store.commit('User/setUserData', user) // Save user data
+        this.setShowLoginModel(false)
+        this.snackBar.info('User logged in.')
+      }).catch(err => {
+        this.$refs.loginForm.reset()
+        this.snackBar.info(err.message)
+      })
+    }
   },
   beforeDestroy () {
-    this.dataFields.email.value = null
-    this.dataFields.password.value = null
+    this.$refs.loginForm.reset() // Reset login form, when ever component is re-rendered
+    this.formValidated = false
+    this.$refs.loginForm = null
   }
 }
 </script>

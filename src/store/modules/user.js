@@ -1,3 +1,5 @@
+import fBase from './../../helpers/firebase'
+import Store from './../../store'
 export default {
   namespaced: true,
   state: {
@@ -8,8 +10,19 @@ export default {
   },
   mutations: {
     setUserData (state, stat = null) { // Store logged in user data
-      if (stat !== null && stat.constructor === Object) state.userData = stat
+      state.userData = stat
     }
   },
-  actions: []
+  actions: {
+    // Sign user out
+    signUserOut ({ state }, val = 'User logged out') {
+      fBase.fireauth.signOut().then(resp => {
+        Store.state.snackbar.info(val)
+        Store.commit.setShowLoginModel(true)
+        Store.commit.setShowLoginModel(false)
+      }).catch(err => {
+        Store.state.snackbar.error(err.message)
+      })
+    }
+  }
 }
