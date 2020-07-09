@@ -22,7 +22,7 @@
             @click="(fireUser) ? $store.dispatch('User/signUserOut') : setShowLoginModel(!showLoginModel)"
           ><v-icon>mdi-{{ (fireUser) ? 'logout' : 'login' }}</v-icon></v-btn>
         </template>
-        <span class="loginLbl">{{ (fireUser) ? 'Logout' : 'Login' }} ( Only for Admins ) </span>
+        <span class="loginLbl">{{ (fireUser) ? 'Logout' : 'Login ( Only for Admins )' }}  </span>
       </v-tooltip>
 
       <!-- Login Model -->

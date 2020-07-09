@@ -18,8 +18,7 @@ export default {
     signUserOut ({ state }, val = 'User logged out') {
       fBase.fireauth.signOut().then(resp => {
         Store.state.snackbar.info(val)
-        Store.commit.setShowLoginModel(true)
-        Store.commit.setShowLoginModel(false)
+        if (Store.state.showLoginModel) Store.commit('setShowLoginModel', false)
       }).catch(err => {
         Store.state.snackbar.error(err.message)
       })

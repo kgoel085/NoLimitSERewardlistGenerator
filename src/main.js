@@ -9,11 +9,11 @@ import './assets/fonts.css'
 
 Vue.config.productionTip = false
 
-firebase.fireauth.onAuthStateChanged((usr = null) => {
-  store.commit('User/setUserData', usr) // Set user state
-  new Vue({
-    store,
-    vuetify,
-    render: h => h(App)
-  }).$mount('#app')
-})
+// On auth change set user data
+firebase.fireauth.onAuthStateChanged((usr = null) => store.commit('User/setUserData', usr))
+
+new Vue({
+  store,
+  vuetify,
+  render: h => h(App)
+}).$mount('#app')
