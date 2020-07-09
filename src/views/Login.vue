@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :loading="loading">
     <v-card-title class="primary" color="white">
       Login
       <v-spacer></v-spacer>
@@ -23,7 +23,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn class="primary" :disabled="!formValidated" @click="triggerLogin">
+      <v-btn class="primary" :disabled="!formValidated" @click="triggerLogin" :loading='loading'>
         Login <v-icon>mdi-login</v-icon>
       </v-btn>
     </v-card-actions>
@@ -34,6 +34,7 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   data: () => ({
     formValidated: false, // Form is validated or not
+    loading: false,
     dataFields: {
       email: {
         label: 'Email',
@@ -70,6 +71,7 @@ export default {
       for (const key of Object.keys(this.dataFields)) emailCred[key] = this.dataFields[key].value
       const { email, password } = emailCred
 
+      this.loading = true
       this.$__firebase.fireauth.signInWithEmailAndPassword(email, password).then(resp => {
         const { user } = resp
         this.$store.commit('User/setUserData', user) // Save user data
@@ -78,6 +80,8 @@ export default {
       }).catch(err => {
         this.$refs.loginForm.reset()
         this.snackBar.info(err.message)
+      }).finally(() => {
+        this.loading = false
       })
     }
   },
