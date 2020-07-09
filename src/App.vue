@@ -26,7 +26,7 @@
       </v-tooltip>
 
       <!-- Login Model -->
-      <v-dialog v-if="showModel" :value="true" width="30%" class="elevation-6" @input="showModel = !showModel">
+      <v-dialog v-if="showModel" :value="true" width="30%" class="elevation-6" @input="showModel = !showModel" persistent>
         <Login v-if="showModel"></Login>
       </v-dialog>
     </v-main>

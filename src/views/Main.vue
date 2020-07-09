@@ -7,6 +7,11 @@
     </v-flex>
     <v-flex xs12 v-else>
       <v-layout row wrap>
+        <!-- Selection box -->
+        <v-flex xs12>
+          <StoreCars></StoreCars>
+        </v-flex>
+
         <!-- Reward list -->
         <v-flex xs12 md4>
           <RewardList></RewardList>
@@ -30,6 +35,7 @@
 import { mapGetters } from 'vuex'
 import RewardTable from '@/components/RewardTable'
 import RewardList from '@/components/RewardList'
+import StoreCars from '@/components/StoreCars'
 export default {
   data: () => ({
 
@@ -41,7 +47,8 @@ export default {
   },
   components: {
     RewardTable,
-    RewardList
+    RewardList,
+    StoreCars
   }
 }
 </script>
