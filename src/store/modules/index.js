@@ -5,6 +5,7 @@ import MaterialCategoryType from './materialCategoryType'
 import PerformancePart from './performancePart'
 import EventRewardTemplate from './eventRewardTemplate'
 import User from './user'
+import CarList from './carList'
 
 export default {
   User,
@@ -13,5 +14,6 @@ export default {
   MaterialCategory,
   MaterialCategoryType,
   PerformancePart,
-  EventRewardTemplate
+  EventRewardTemplate,
+  CarList
 }

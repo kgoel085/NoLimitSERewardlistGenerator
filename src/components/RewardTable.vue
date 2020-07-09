@@ -129,6 +129,14 @@ export default {
 
     // Trigger the request to calculate material
     handleEvents (dataToSend = {}) {
+      const { races } = dataToSend
+
+      // Convert undefined values to null
+      dataToSend.races = races.map(obj => {
+        const { value } = obj
+        if (typeof value === 'undefined') obj.value = null
+        return obj
+      })
       this.$store.commit('EventRewardTemplate/calculateRewardItems', dataToSend)
     },
 

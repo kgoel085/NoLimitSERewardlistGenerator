@@ -75,6 +75,9 @@ export default {
     this.$store.commit('setSnackBarObj', this.$refs.snackbar) // Store ref to loaded snackbar
     this.$vuetify.theme.dark = this.isDarkMode
     this.$store.commit('setDarkMode', this.isDarkMode)
+
+    // Fetch the car data
+    this.$store.dispatch('CarList/fetchData')
   }
 }
 </script>
