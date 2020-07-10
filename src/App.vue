@@ -22,11 +22,11 @@
             @click="(fireUser) ? $store.dispatch('User/signUserOut') : setShowLoginModel(!showLoginModel)"
           ><v-icon>mdi-{{ (fireUser) ? 'logout' : 'login' }}</v-icon></v-btn>
         </template>
-        <span class="loginLbl">{{ (fireUser) ? 'Logout' : 'Login ( Only for Admins )' }}  </span>
+        <span class="loginLbl">{{ (fireUser) ? 'Logout' : 'Login' }} ( Only for Admins ) </span>
       </v-tooltip>
 
       <!-- Login Model -->
-      <v-dialog v-if="showModel" :value="true" width="30%" class="elevation-6" @input="showModel = !showModel" persistent>
+      <v-dialog v-if="showModel" :value="true" width="30%" class="elevation-6" @input="showModel = !showModel">
         <Login v-if="showModel"></Login>
       </v-dialog>
     </v-main>
@@ -71,13 +71,11 @@ export default {
     this.$vuetify.theme.dark = this.isDarkMode
     this.$store.commit('setDarkMode', this.isDarkMode)
   },
-  mounted () {
+  async mounted () {
+    await this.$store.dispatch('CarList/fetchData')
     this.$store.commit('setSnackBarObj', this.$refs.snackbar) // Store ref to loaded snackbar
     this.$vuetify.theme.dark = this.isDarkMode
     this.$store.commit('setDarkMode', this.isDarkMode)
-
-    // Fetch the car data
-    this.$store.dispatch('CarList/fetchData')
   }
 }
 </script>

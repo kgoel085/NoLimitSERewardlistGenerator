@@ -26,7 +26,8 @@
                       item-text="name"
                       item-value="name"
                       v-model="race.value"
-                      clearable
+                      :clearable="(getRowId) ? false : true"
+                      :disabled="(getRowId) ? true : false"
                       @input="handleEvents(dataObj)"
                     ></v-select>
                   </template>
@@ -61,7 +62,8 @@ export default {
       mCatTypeData: 'MaterialCategoryType/getData', // Material Category Data
       perfPartData: 'PerformancePart/getData', // Performance Parts Data
       eventRewardTpl: 'EventRewardTemplate/getData', // Event reward Template Data
-      eventRewardInputArr: 'EventRewardTemplate/getInputData' // Event reward Template Data
+      eventRewardInputArr: 'EventRewardTemplate/getInputData', // Event reward Template Data
+      getRowId: 'CarList/getRowId' // Get active document id, if present
     }),
 
     // Data loaded or not
